@@ -9,7 +9,6 @@ pkgs.mkShell {
   buildInputs = [
     (app.nodejs pkgs)
     pkgs.git-crypt
-    pkgs.nodePackages.node2nix
   ];
 
   shellHook = ''
