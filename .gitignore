@@ -3,7 +3,6 @@ node_modules
 /dist
 
 *.nixops-*
-nixops/dev.nixops
 result
 
 # local env files
