@@ -1,6 +1,6 @@
 {
-  "name": "betting-game-frontend",
-  "short_name": "betting-game-frontend",
+  "name": "Fußball Tippspiel",
+  "short_name": "Fußball Tippspiel",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
@@ -15,6 +15,6 @@
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#4DBA87"
+  "background_color": "#182628",
+  "theme_color": "#65CCB8"
 }
