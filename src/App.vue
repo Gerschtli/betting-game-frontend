@@ -1,26 +1,56 @@
 <template lang="pug">
   v-app
-    v-toolbar(app)
-      v-toolbar-title(class="headline text-uppercase")
-        span Vuetify
-        span(class="font-weight-light") MATERIAL DESIGN
+    v-navigation-drawer(
+      app
+      v-model="drawer"
+      absolute
+      temporary
+    )
+      v-toolbar(flat)
+        v-list
+          v-list-tile
+            v-list-tile-title(class="title") Navigation
+
+      v-divider
+
+      v-list(dense class="pt-4")
+        v-list-tile(
+          v-for="item in items"
+          :key="item.title"
+          :to="item.link"
+        )
+          v-list-tile-action
+            v-icon {{ item.icon }}
+
+          v-list-tile-content
+            v-list-tile-title {{ item.title }}
+
+    v-toolbar(app dark color="primary")
+      v-toolbar-side-icon(@click.stop="drawer = !drawer")
+      v-toolbar-title Fußball Tippspiel
+
       v-spacer
-      v-btn(
-        flat,
-        href="https://github.com/vuetifyjs/vuetify/releases/latest",
-        target="_blank"
-      )
-        span(class="mr-2") Latest Release
+
+      v-btn(icon)
+        v-icon more_vert
 
     v-content
-      router-view
+      v-container(fluid)
+        router-view
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class App extends Vue {}
+export default class App extends Vue {
+  private drawer: boolean = false;
+  private items: Array<{ title: string, icon: string, link: string }> = [
+    { title: 'Home', icon: 'home', link: '/' },
+    { title: 'About', icon: 'question_answer', link: '/about' },
+    { title: 'Login', icon: 'exit_to_app', link: '/login' },
+  ];
+}
 </script>
 
 <style lang="sass">
