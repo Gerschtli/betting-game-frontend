@@ -31,8 +31,11 @@
 
       v-spacer
 
-      v-btn(icon)
-        v-icon more_vert
+      v-tooltip(bottom open-delay="1000")
+        template(v-slot:activator="{ on }")
+          v-btn(icon v-on="on")
+            v-icon logout
+        span Logout
 
     v-content
       v-container(fluid)
