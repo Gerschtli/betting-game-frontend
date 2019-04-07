@@ -9,6 +9,7 @@ async function login(username: string, password: string): Promise<any> {
     return response;
   } catch (error) {
     if (!(error instanceof Unauthorized)) {
+      // tslint:disable no-console
       console.warn(error);
     }
 

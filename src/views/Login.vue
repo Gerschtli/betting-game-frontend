@@ -65,12 +65,13 @@ export default class Login extends Vue {
   private async onSubmit() {
     const response = await login(this.username, this.password);
 
+    // tslint:disable no-console
     console.log(response);
 
     if (response === null) {
       this.error = true;
     } else {
-      this.$router.push({ name: 'home' })
+      this.$router.push({ name: 'home' });
     }
   }
 }
