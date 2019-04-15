@@ -15,8 +15,8 @@
     v-layout(align-center justify-center)
       v-flex(xs12 sm8 md4)
         v-card(class="elevation-12")
-          v-card-text
-            v-form
+          v-form(@submit.prevent="onSubmit")
+            v-card-text
               v-text-field(
                 prepend-icon="person"
                 name="username"
@@ -41,9 +41,9 @@
                 data-vv-as="Passwort"
                 required
               )
-          v-card-actions
-            v-spacer
-            v-btn(color="primary" @click="onSubmit") Login
+            v-card-actions
+              v-spacer
+              v-btn(color="primary" type="submit") Login
 </template>
 
 <script lang="ts">
