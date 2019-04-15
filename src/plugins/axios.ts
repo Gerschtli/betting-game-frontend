@@ -19,7 +19,7 @@ axios.defaults.baseURL = 'http://192.168.56.101:5000';
 axios.interceptors.response.use(
   (response) => response,
   (error) => {
-    switch (error.response.code) {
+    switch (error.response.status) {
       case BAD_REQUEST:
         error = new BadRequest();
         break;
