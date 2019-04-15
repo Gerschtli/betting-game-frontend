@@ -7,7 +7,7 @@ import '@/plugins/vuetify';
 
 import App from '@/App.vue';
 import router from '@/router';
-import store from '@/store';
+import store from '@/store/index'; // FIXME: `@/store` doesn't work but `./store` does.. why?
 import '@/registerServiceWorker';
 
 Vue.config.productionTip = false;
