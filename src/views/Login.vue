@@ -3,8 +3,8 @@
     v-snackbar(
       v-model="error"
       color="error"
-      :timeout="0"
-      :bottom="true"
+      :timeout="5000"
+      :top="true"
     ) Benutzername und/oder Passwort falsch.
       v-btn(
         color="secondary"
@@ -16,18 +16,17 @@
       v-flex(xs12 sm8 md4)
         v-card(class="elevation-12")
           v-card-text
-            v-form(
-              ref="form"
-              v-model="valid"
-              lazy-validation
-            )
+            v-form
               v-text-field(
                 prepend-icon="person"
                 name="username"
                 label="Benutzername"
                 type="text"
                 v-model="username"
-                :rules="usernameRules"
+                v-validate="'required'"
+                :error-messages="errors.collect('username')"
+                data-vv-name="username"
+                data-vv-as="Benutzername"
                 required
               )
               v-text-field(
@@ -36,7 +35,10 @@
                 label="Passwort"
                 type="password"
                 v-model="password"
-                :rules="passwordRules"
+                v-validate="'required'"
+                :error-messages="errors.collect('password')"
+                data-vv-name="password"
+                data-vv-as="Passwort"
                 required
               )
           v-card-actions
@@ -53,24 +55,21 @@ import { login } from '@/services/authentication';
 export default class Login extends Vue {
   private username: string = 'abcdef';
   private password: string = '123s456';
-  private valid: boolean = true;
   private error: boolean = false;
-  private usernameRules = [
-    (v: string) => !!v || 'Username is required',
-  ];
-  private passwordRules = [
-    (v: string) => !!v || 'Password is required',
-  ];
 
   private async onSubmit() {
-    const response = await login(this.username, this.password);
+    if (!await this.$validator.validateAll()) {
+      return;
+    }
 
-    // tslint:disable no-console
-    console.log(response);
+    const response = await login(this.username, this.password);
 
     if (response === null) {
       this.error = true;
     } else {
+      // tslint:disable no-console
+      console.log(response);
+
       this.$router.push({ name: 'home' });
     }
   }
