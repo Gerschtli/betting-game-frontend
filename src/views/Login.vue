@@ -54,7 +54,7 @@ import { login } from '@/services/authentication';
 @Component
 export default class Login extends Vue {
   private username: string = 'abcdef';
-  private password: string = '123s456';
+  private password: string = '123456';
   private error: boolean = false;
 
   private async onSubmit() {
@@ -62,15 +62,15 @@ export default class Login extends Vue {
       return;
     }
 
-    const response = await login(this.username, this.password);
+    const success = await this.$store.dispatch(
+      'authentication/login',
+      { username: this.username, password: this.password },
+    );
 
-    if (response === null) {
-      this.error = true;
-    } else {
-      // tslint:disable no-console
-      console.log(response);
-
+    if (success) {
       this.$router.push({ name: 'home' });
+    } else {
+      this.error = true;
     }
   }
 }
