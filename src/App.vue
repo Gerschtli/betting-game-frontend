@@ -33,7 +33,7 @@
 
       v-tooltip(bottom open-delay="1000")
         template(v-slot:activator="{ on }")
-          v-btn(icon v-on="on")
+          v-btn(icon v-on="on" @click="logout")
             v-icon logout
         span Logout
 
@@ -53,6 +53,12 @@ export default class App extends Vue {
     { title: 'About', icon: 'question_answer', link: '/about' },
     { title: 'Login', icon: 'exit_to_app', link: '/login' },
   ];
+
+  async logout() {
+    await this.$store.dispatch('authentication/logout');
+    console.log('logout');
+    console.log(localStorage);
+  }
 }
 </script>
 
