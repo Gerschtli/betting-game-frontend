@@ -17,6 +17,18 @@ async function login(username: string, password: string): Promise<any> {
   }
 }
 
+async function logout(): Promise<void> {
+  try {
+    await axios.post('/auth/logout');
+  } catch (error) {
+    if (!(error instanceof Unauthorized)) {
+      // tslint:disable no-console
+      console.warn(error);
+    }
+  }
+}
+
 export {
   login,
+  logout,
 };
