@@ -48,8 +48,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { Action, namespace } from 'vuex-class';
 
 import { login } from '@/services/authentication';
+import { authenticationNamespace } from '@/store/authentication';
+import { LOGIN } from '@/store/authentication/actions';
+
+const authentication = namespace(authenticationNamespace);
 
 @Component
 export default class Login extends Vue {
@@ -57,13 +62,15 @@ export default class Login extends Vue {
   private password: string = '123456';
   private error: boolean = false;
 
+  @authentication.Action(LOGIN)
+  private actionLogin: any;
+
   private async onSubmit() {
     if (!await this.$validator.validateAll()) {
       return;
     }
 
-    const success = await this.$store.dispatch(
-      'authentication/login',
+    const success = await this.actionLogin(
       { username: this.username, password: this.password },
     );
 

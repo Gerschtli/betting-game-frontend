@@ -4,11 +4,14 @@ import { BAD_REQUEST, UNAUTHORIZED, UNPROCESSABLE_ENTITY } from 'http-status-cod
 import { ApiError, BadRequest, Unauthorized, UnprocessableEntity } from '@/errors';
 import store from '@/store';
 
+import { authenticationNamespace } from '@/store/authentication';
+import { ACCESS_TOKEN } from '@/store/authentication/getters';
+
 axios.defaults.baseURL = 'http://192.168.56.101:5000';
 
 axios.interceptors.request.use(
   (config) => {
-    const accessToken = store.getters['authentication/accessToken'];
+    const accessToken = store.getters[`${authenticationNamespace}/${ACCESS_TOKEN}`];
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }

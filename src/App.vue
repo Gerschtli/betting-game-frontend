@@ -44,6 +44,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { Action, namespace } from 'vuex-class';
+
+import { logout } from '@/services/authentication';
+import { authenticationNamespace } from '@/store/authentication';
+import { LOGOUT } from '@/store/authentication/actions';
+
+const authentication = namespace(authenticationNamespace);
 
 @Component
 export default class App extends Vue {
@@ -54,8 +61,11 @@ export default class App extends Vue {
     { title: 'Login', icon: 'exit_to_app', link: '/login' },
   ];
 
+  @authentication.Action(LOGOUT)
+  private actionLogout: any;
+
   async logout() {
-    await this.$store.dispatch('authentication/logout');
+    await this.actionLogout();
     console.log('logout');
     console.log(localStorage);
   }
