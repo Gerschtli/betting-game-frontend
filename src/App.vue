@@ -2,7 +2,7 @@
   v-app
     v-navigation-drawer(
       app
-      v-show="isAuthenticated"
+      v-if="isAuthenticated"
       v-model="drawer"
       absolute
       temporary
@@ -27,14 +27,14 @@
             v-list-tile-title {{ item.title }}
 
     v-toolbar(app dark color="primary")
-      v-toolbar-side-icon(@click.stop="drawer = !drawer" v-show="isAuthenticated")
+      v-toolbar-side-icon(@click.stop="drawer = !drawer" v-if="isAuthenticated")
       v-toolbar-title Fußball Tippspiel
 
-      v-spacer
+      v-spacer(v-if="isAuthenticated")
 
-      v-tooltip(bottom open-delay="1000")
+      v-tooltip(bottom open-delay="1000" v-if="isAuthenticated")
         template(v-slot:activator="{ on }")
-          v-btn(icon v-on="on" @click="logout" v-show="isAuthenticated")
+          v-btn(icon v-on="on" @click="logout")
             v-icon logout
         span Logout
 
