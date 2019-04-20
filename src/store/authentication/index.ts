@@ -11,7 +11,7 @@ export const authentication: Module<AuthenticationState, RootState> = {
   namespaced: true,
   state(): AuthenticationState {
     return {
-      accessToken: localStorage.accessToken || undefined,
+      accessToken: localStorage.getItem('accessToken') || undefined,
     };
   },
   getters,
