@@ -53,6 +53,7 @@ import { Action, namespace } from 'vuex-class';
 import { login } from '@/services/authentication';
 import { authenticationNamespace } from '@/store/authentication';
 import { LOGIN } from '@/store/authentication/actions';
+import { ROUTES } from '@/router';
 
 const authentication = namespace(authenticationNamespace);
 
@@ -75,7 +76,12 @@ export default class Login extends Vue {
     );
 
     if (success) {
-      this.$router.push({ name: 'home' });
+      let route: { name?: string, path?: string } = { name: ROUTES.home };
+      if (this.$route.params.nextUrl) {
+        route = { path: this.$route.params.nextUrl };
+      }
+
+      this.$router.push(route);
     } else {
       this.error = true;
     }

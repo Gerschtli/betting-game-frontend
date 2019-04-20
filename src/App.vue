@@ -2,6 +2,7 @@
   v-app
     v-navigation-drawer(
       app
+      v-show="isAuthenticated"
       v-model="drawer"
       absolute
       temporary
@@ -26,14 +27,14 @@
             v-list-tile-title {{ item.title }}
 
     v-toolbar(app dark color="primary")
-      v-toolbar-side-icon(@click.stop="drawer = !drawer")
+      v-toolbar-side-icon(@click.stop="drawer = !drawer" v-show="isAuthenticated")
       v-toolbar-title Fußball Tippspiel
 
       v-spacer
 
       v-tooltip(bottom open-delay="1000")
         template(v-slot:activator="{ on }")
-          v-btn(icon v-on="on" @click="logout")
+          v-btn(icon v-on="on" @click="logout" v-show="isAuthenticated")
             v-icon logout
         span Logout
 
@@ -48,7 +49,9 @@ import { Action, namespace } from 'vuex-class';
 
 import { logout } from '@/services/authentication';
 import { authenticationNamespace } from '@/store/authentication';
+import { IS_AUTHENTICATED } from '@/store/authentication/getters';
 import { LOGOUT } from '@/store/authentication/actions';
+import { ROUTES } from '@/router';
 
 const authentication = namespace(authenticationNamespace);
 
@@ -58,16 +61,17 @@ export default class App extends Vue {
   private items: Array<{ title: string, icon: string, link: string }> = [
     { title: 'Home', icon: 'home', link: '/' },
     { title: 'About', icon: 'question_answer', link: '/about' },
-    { title: 'Login', icon: 'exit_to_app', link: '/login' },
   ];
 
   @authentication.Action(LOGOUT)
   private actionLogout: any;
 
-  async logout() {
+  @authentication.Getter(IS_AUTHENTICATED)
+  private isAuthenticated: any;
+
+  private async logout() {
     await this.actionLogout();
-    console.log('logout');
-    console.log(localStorage);
+    this.$router.push({ name: ROUTES.login });
   }
 }
 </script>
