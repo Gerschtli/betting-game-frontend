@@ -7,7 +7,7 @@ import store from '@/store';
 import { authenticationNamespace } from '@/store/authentication';
 import { ACCESS_TOKEN } from '@/store/authentication/getters';
 
-axios.defaults.baseURL = 'http://192.168.56.101:5000';
+axios.defaults.baseURL = process.env.VUE_APP_ROOT_API;
 
 axios.interceptors.request.use(
   (config) => {
