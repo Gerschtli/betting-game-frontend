@@ -39,6 +39,7 @@ const router = new Router({
       path: '*',
       name: ROUTES.notFound,
       component: () => import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue'),
+      meta: { requiresAuth: true },
     },
   ],
 });
