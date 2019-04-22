@@ -1,11 +1,9 @@
-import axios from 'axios';
-import { BAD_REQUEST, UNAUTHORIZED, UNPROCESSABLE_ENTITY } from 'http-status-codes';
-
 import { ApiError, BadRequest, Unauthorized, UnprocessableEntity } from '@/errors';
 import store from '@/store';
-
 import { authenticationNamespace } from '@/store/authentication';
 import { ACCESS_TOKEN } from '@/store/authentication/getters';
+import axios from 'axios';
+import { BAD_REQUEST, UNAUTHORIZED, UNPROCESSABLE_ENTITY } from 'http-status-codes';
 
 axios.defaults.baseURL = process.env.VUE_APP_ROOT_API;
 

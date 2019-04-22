@@ -47,13 +47,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { Action, namespace } from 'vuex-class';
-
+import { ROUTES } from '@/router';
 import { login } from '@/services/authentication';
 import { authenticationNamespace } from '@/store/authentication';
 import { LOGIN } from '@/store/authentication/actions';
-import { ROUTES } from '@/router';
+import { Component, Vue } from 'vue-property-decorator';
+import { Action, namespace } from 'vuex-class';
 
 const authentication = namespace(authenticationNamespace);
 

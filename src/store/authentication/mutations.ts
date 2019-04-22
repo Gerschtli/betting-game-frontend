@@ -1,4 +1,5 @@
 import { MutationTree } from 'vuex';
+
 import { AuthenticationState } from './types';
 
 export const SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN';

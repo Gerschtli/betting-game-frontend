@@ -1,6 +1,5 @@
-import axios from 'axios';
-
 import { Unauthorized } from '@/errors';
+import axios from 'axios';
 
 async function login(username: string, password: string): Promise<any> {
   try {

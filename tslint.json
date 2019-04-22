@@ -9,11 +9,34 @@
     ]
   },
   "rules": {
-    "quotemark": [true, "single"],
-    "indent": [true, "spaces", 2],
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "indent": [
+      true,
+      "spaces",
+      2
+    ],
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore"
+    ],
     "interface-name": false,
-    "ordered-imports": false,
-    "object-literal-sort-keys": false,
-    "no-consecutive-blank-lines": false
+    "ordered-imports": [
+      true,
+      {
+        "groups": [
+          "^.",
+          "^@",
+          "^\\.\\.",
+          "^\\."
+        ],
+        "ordered-imports": true
+      }
+    ],
+    "object-literal-sort-keys": true
   }
 }

@@ -1,8 +1,11 @@
 import { ActionTree } from 'vuex';
+
 import { login, logout } from '@/services/authentication';
-import { AuthenticationState } from './types';
-import { SET_ACCESS_TOKEN, RESET_ACCESS_TOKEN } from './mutations';
+
 import { RootState } from '../types';
+
+import { RESET_ACCESS_TOKEN, SET_ACCESS_TOKEN } from './mutations';
+import { AuthenticationState } from './types';
 
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';

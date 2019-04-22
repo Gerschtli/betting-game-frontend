@@ -1,9 +1,11 @@
 import { Module } from 'vuex';
-import { getters } from './getters';
+
+import { RootState } from '../types';
+
 import { actions } from './actions';
+import { getters } from './getters';
 import { mutations } from './mutations';
 import { AuthenticationState } from './types';
-import { RootState } from '../types';
 
 export const authenticationNamespace = 'authentication';
 

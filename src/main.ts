@@ -1,14 +1,13 @@
 import '@babel/polyfill';
 import Vue from 'vue';
 
+import App from './App.vue';
 import './plugins/axios';
 import './plugins/vee-validate';
 import './plugins/vuetify';
-
-import App from './App.vue';
+import './registerServiceWorker';
 import { router } from './router';
 import store from './store';
-import './registerServiceWorker';
 
 Vue.config.productionTip = process.env.NODE_ENV === 'production';
 

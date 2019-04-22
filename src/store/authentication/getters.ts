@@ -1,6 +1,8 @@
 import { GetterTree } from 'vuex';
-import { AuthenticationState } from './types';
+
 import { RootState } from '../types';
+
+import { AuthenticationState } from './types';
 
 export const ACCESS_TOKEN = 'ACCESS_TOKEN';
 export const IS_AUTHENTICATED = 'IS_AUTHENTICATED';

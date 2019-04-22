@@ -1,10 +1,8 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-
 import store from '@/store';
-
 import { authenticationNamespace } from '@/store/authentication';
 import { IS_AUTHENTICATED } from '@/store/authentication/getters';
+import Vue from 'vue';
+import Router from 'vue-router';
 
 Vue.use(Router);
 
