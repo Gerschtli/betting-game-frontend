@@ -4,7 +4,7 @@ import Vue from 'vue';
 
 import App from './App.vue';
 import './plugins/axios';
-import './plugins/vee-validate';
+import './plugins/veeValidate';
 import './plugins/vuetify';
 import './registerServiceWorker';
 import { router } from './router';
