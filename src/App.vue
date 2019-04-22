@@ -44,13 +44,14 @@
 </template>
 
 <script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import { Action, namespace } from 'vuex-class';
+
 import { ROUTES } from '@/router';
 import { logout } from '@/services/authentication';
 import { authenticationNamespace } from '@/store/authentication';
 import { LOGOUT } from '@/store/authentication/actions';
 import { IS_AUTHENTICATED } from '@/store/authentication/getters';
-import { Component, Vue } from 'vue-property-decorator';
-import { Action, namespace } from 'vuex-class';
 
 const authentication = namespace(authenticationNamespace);
 

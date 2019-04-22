@@ -28,11 +28,30 @@
     "ordered-imports": [
       true,
       {
+        "grouped-imports": true,
         "groups": [
-          "^.",
-          "^@",
-          "^\\.\\.",
-          "^\\."
+          {
+            "match": "^@babel/polyfill$",
+            "order": 0
+          },
+          {
+            "match": "^@",
+            "order": 20
+          },
+          {
+            "name": "parent_dir",
+            "match": "^[.][.]",
+            "order": 30
+          },
+          {
+            "name": "current dir",
+            "match": "^[.]",
+            "order": 40
+          },
+          {
+            "match": ".*",
+            "order": 10
+          }
         ],
         "ordered-imports": true
       }
