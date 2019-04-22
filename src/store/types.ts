@@ -1,3 +1,2 @@
-export interface RootState {
-  _?: number;
-}
+/* tslint:disable:no-empty-interface */
+export interface RootState { }
