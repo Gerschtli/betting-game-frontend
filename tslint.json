@@ -56,6 +56,6 @@
         "ordered-imports": true
       }
     ],
-    "object-literal-sort-keys": true
+    "object-literal-sort-keys": false
   }
 }
