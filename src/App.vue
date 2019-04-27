@@ -42,6 +42,7 @@
       v-container(fluid)
         router-view
 
+    update-message
     error-message
 </template>
 
@@ -50,6 +51,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Action, namespace } from 'vuex-class';
 
 import ErrorMessage from '@/components/ErrorMessage.vue';
+import UpdateMessage from '@/components/UpdateMessage.vue';
 import { ROUTES } from '@/router';
 import { logout } from '@/services/authentication';
 import { authenticationNamespace } from '@/store/authentication';
@@ -61,6 +63,7 @@ const AUTHENTICATION = namespace(authenticationNamespace);
 @Component({
   components: {
     ErrorMessage,
+    UpdateMessage,
   },
 })
 export default class App extends Vue {
