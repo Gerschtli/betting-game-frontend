@@ -4,6 +4,7 @@ import Vuex, { StoreOptions } from 'vuex';
 import { authentication, authenticationNamespace } from './authentication';
 import { error, errorNamespace } from './error';
 import { RootState } from './types';
+import { update, updateNamespace } from './update';
 
 Vue.use(Vuex);
 
@@ -13,6 +14,7 @@ const store: StoreOptions<RootState> = {
   modules: {
     [authenticationNamespace]: authentication,
     [errorNamespace]: error,
+    [updateNamespace]: update,
   },
 };
 
