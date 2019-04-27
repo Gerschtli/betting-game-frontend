@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { BAD_REQUEST, UNAUTHORIZED, UNPROCESSABLE_ENTITY } from 'http-status-codes';
+import { UNAUTHORIZED } from 'http-status-codes';
 
-import { ApiError, BadRequest, Unauthorized, UnprocessableEntity } from '@/errors';
+import { ApiError, Unauthorized } from '@/errors';
 import store from '@/store';
 import { authenticationNamespace } from '@/store/authentication';
 import { ACCESS_TOKEN } from '@/store/authentication/getters';
@@ -24,14 +24,8 @@ axios.interceptors.response.use(
   (response) => response,
   (error) => {
     switch (error.response.status) {
-      case BAD_REQUEST:
-        error = new BadRequest();
-        break;
       case UNAUTHORIZED:
         error = new Unauthorized();
-        break;
-      case UNPROCESSABLE_ENTITY:
-        error = new UnprocessableEntity();
         break;
       default:
         error = new ApiError();
