@@ -41,12 +41,15 @@
     v-content
       v-container(fluid)
         router-view
+
+    error-message
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { Action, namespace } from 'vuex-class';
 
+import ErrorMessage from '@/components/ErrorMessage.vue';
 import { ROUTES } from '@/router';
 import { logout } from '@/services/authentication';
 import { authenticationNamespace } from '@/store/authentication';
@@ -55,7 +58,11 @@ import { IS_AUTHENTICATED } from '@/store/authentication/getters';
 
 const authentication = namespace(authenticationNamespace);
 
-@Component
+@Component({
+  components: {
+    ErrorMessage,
+  },
+})
 export default class App extends Vue {
   private drawer: boolean = false;
   private items: Array<{ title: string, icon: string, link: string }> = [
