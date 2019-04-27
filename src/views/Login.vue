@@ -1,17 +1,5 @@
 <template lang="pug">
   v-container(fluid fill-height)
-    v-snackbar(
-      v-model="error"
-      color="error"
-      :timeout="5000"
-      :top="true"
-    ) Benutzername und/oder Passwort falsch.
-      v-btn(
-        color="secondary"
-        flat
-        @click="error = false"
-      ) Schließen
-
     v-layout(align-center justify-center)
       v-flex(xs12 sm8 md4)
         v-card(class="elevation-12")
@@ -54,17 +42,21 @@ import { ROUTES } from '@/router';
 import { login } from '@/services/authentication';
 import { authenticationNamespace } from '@/store/authentication';
 import { LOGIN } from '@/store/authentication/actions';
+import { errorNamespace } from '@/store/error';
+import { SET } from '@/store/error/mutations';
 
 const authentication = namespace(authenticationNamespace);
+const error = namespace(errorNamespace);
 
 @Component
 export default class Login extends Vue {
   private username: string = 'abcdef';
   private password: string = '123456';
-  private error: boolean = false;
 
   @authentication.Action(LOGIN)
   private actionLogin: any;
+  @error.Mutation(SET)
+  private setError: any;
 
   private async onSubmit() {
     if (!await this.$validator.validateAll()) {
@@ -83,7 +75,7 @@ export default class Login extends Vue {
 
       this.$router.push(route);
     } else {
-      this.error = true;
+      this.setError({ message: 'Benutzername und/oder Passwort falsch.' });
     }
   }
 }
