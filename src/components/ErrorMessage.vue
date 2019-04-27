@@ -20,7 +20,7 @@ import { errorNamespace } from '@/store/error';
 import { MESSAGE } from '@/store/error/getters';
 import { RESET } from '@/store/error/mutations';
 
-const error = namespace(errorNamespace);
+const ERROR = namespace(errorNamespace);
 const TIMEOUT = 6000;
 
 @Component
@@ -28,9 +28,9 @@ export default class ErrorMessage extends Vue {
   private show: boolean = false;
   private timeoutId: number | undefined = undefined;
 
-  @error.Getter(MESSAGE)
+  @ERROR.Getter(MESSAGE)
   private message: any;
-  @error.Mutation(RESET)
+  @ERROR.Mutation(RESET)
   private resetMessage: any;
 
   private close(): void {

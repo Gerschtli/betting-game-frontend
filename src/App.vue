@@ -56,7 +56,7 @@ import { authenticationNamespace } from '@/store/authentication';
 import { LOGOUT } from '@/store/authentication/actions';
 import { IS_AUTHENTICATED } from '@/store/authentication/getters';
 
-const authentication = namespace(authenticationNamespace);
+const AUTHENTICATION = namespace(authenticationNamespace);
 
 @Component({
   components: {
@@ -70,13 +70,12 @@ export default class App extends Vue {
     { title: 'About', icon: 'question_answer', link: '/about' },
   ];
 
-  @authentication.Action(LOGOUT)
+  @AUTHENTICATION.Action(LOGOUT)
   private actionLogout: any;
-
-  @authentication.Getter(IS_AUTHENTICATED)
+  @AUTHENTICATION.Getter(IS_AUTHENTICATED)
   private isAuthenticated: any;
 
-  private async logout() {
+  private async logout(): Promise<void> {
     await this.actionLogout();
     this.$router.push({ name: ROUTES.login });
   }

@@ -45,17 +45,17 @@ import { LOGIN } from '@/store/authentication/actions';
 import { errorNamespace } from '@/store/error';
 import { SET } from '@/store/error/mutations';
 
-const authentication = namespace(authenticationNamespace);
-const error = namespace(errorNamespace);
+const AUTHENTICATION = namespace(authenticationNamespace);
+const ERROR = namespace(errorNamespace);
 
 @Component
 export default class Login extends Vue {
   private username: string = 'abcdef';
   private password: string = '123456';
 
-  @authentication.Action(LOGIN)
+  @AUTHENTICATION.Action(LOGIN)
   private actionLogin: any;
-  @error.Mutation(SET)
+  @ERROR.Mutation(SET)
   private setError: any;
 
   private async onSubmit() {
