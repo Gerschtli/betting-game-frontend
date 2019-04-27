@@ -2,6 +2,10 @@
 
 import { register } from 'register-service-worker';
 
+import store from '@/store';
+import { updateNamespace } from '@/store/update';
+import { SET } from '@/store/update/mutations';
+
 if (process.env.NODE_ENV === 'production') {
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready() {
@@ -12,6 +16,17 @@ if (process.env.NODE_ENV === 'production') {
     },
     registered() {
       console.log('Service worker has been registered.');
+
+      // reload once when the new Service Worker starts activating
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) {
+          return;
+        }
+
+        refreshing = true;
+        window.location.reload();
+      });
     },
     cached() {
       console.log('Content has been cached for offline use.');
@@ -19,8 +34,14 @@ if (process.env.NODE_ENV === 'production') {
     updatefound() {
       console.log('New content is downloading.');
     },
-    updated() {
+    updated(registration) {
       console.log('New content is available; please refresh.');
+
+      store.commit(`${updateNamespace}/${SET}`, {
+        updateHandler: () => {
+          registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+        },
+      });
     },
     offline() {
       console.log('No internet connection found. App is running in offline mode.');
