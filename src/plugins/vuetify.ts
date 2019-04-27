@@ -5,8 +5,8 @@ import 'vuetify/src/stylus/app.styl';
 
 Vue.use(Vuetify, {
   theme: {
-    primary: colors.blue.base, // #2196F3
-    secondary: colors.blue.darken2, // #1976D2
-    accent: colors.red.lighten1, // #EF5350
+    primary: colors.blueGrey.lighten1, // #78909C
+    secondary: colors.blueGrey.darken3, // #37474F
+    accent: colors.teal.lighten1, // #26A69A
   },
 });
