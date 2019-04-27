@@ -11,11 +11,11 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 
 export const actions: ActionTree<AuthenticationState, RootState> = {
-  async [LOGIN]({ commit }, data: { username: string, password: string }): Promise<boolean> {
+  async [LOGIN]({ commit }, data: { username: string, password: string }): Promise<boolean | null> {
     const response = await login(data.username, data.password);
 
-    if (response == null) {
-      return false;
+    if (!response) {
+      return response;
     }
 
     commit(SET_ACCESS_TOKEN, response.data.access_token);

@@ -74,7 +74,7 @@ export default class Login extends Vue {
       }
 
       this.$router.push(route);
-    } else {
+    } else if (success === false) {
       this.setError({ message: 'Benutzername und/oder Passwort falsch.' });
     }
   }

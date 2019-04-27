@@ -2,17 +2,19 @@ import axios from 'axios';
 
 import { Unauthorized } from '@/errors';
 
+import { logError } from './error';
+
 async function login(username: string, password: string): Promise<any> {
   try {
     const response = await axios.post('/auth/login', { username, password });
 
     return response;
   } catch (error) {
-    if (!(error instanceof Unauthorized)) {
-      // tslint:disable no-console
-      console.warn(error);
+    if (error instanceof Unauthorized) {
+      return false;
     }
 
+    logError(error);
     return null;
   }
 }
@@ -22,8 +24,7 @@ async function logout(): Promise<void> {
     await axios.post('/auth/logout');
   } catch (error) {
     if (!(error instanceof Unauthorized)) {
-      // tslint:disable no-console
-      console.warn(error);
+      logError(error);
     }
   }
 }
