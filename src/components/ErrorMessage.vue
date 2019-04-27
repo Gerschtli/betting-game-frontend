@@ -4,6 +4,7 @@
     color="error"
     :timeout="0"
     :top="true"
+    :multi-line="true"
   ) {{ message }}
     v-btn(
       flat
