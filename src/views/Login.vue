@@ -16,6 +16,7 @@
                 data-vv-name="username"
                 data-vv-as="Benutzername"
                 required
+                autofocus
               )
               v-text-field(
                 prepend-icon="lock"
@@ -43,7 +44,7 @@ import { login } from '@/services/authentication';
 import { authenticationNamespace } from '@/store/authentication';
 import { LOGIN } from '@/store/authentication/actions';
 import { errorNamespace } from '@/store/error';
-import { SET } from '@/store/error/mutations';
+import { RESET, SET } from '@/store/error/mutations';
 
 const AUTHENTICATION = namespace(authenticationNamespace);
 const ERROR = namespace(errorNamespace);
@@ -55,6 +56,8 @@ export default class Login extends Vue {
 
   @AUTHENTICATION.Action(LOGIN)
   private actionLogin: any;
+  @ERROR.Mutation(RESET)
+  private resetError: any;
   @ERROR.Mutation(SET)
   private setError: any;
 
@@ -73,6 +76,7 @@ export default class Login extends Vue {
         route = { path: this.$route.params.nextUrl };
       }
 
+      this.resetError();
       this.$router.push(route);
     } else if (success === false) {
       this.setError({ message: 'Benutzername und/oder Passwort falsch.' });
