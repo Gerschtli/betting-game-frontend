@@ -46,7 +46,9 @@ export default class ErrorMessage extends Vue {
       this.timeoutId = undefined;
     }
 
-    if (newValue !== undefined) {
+    if (newValue === undefined) {
+      this.show = false;
+    } else {
       this.timeoutId = window.setTimeout(this.close, TIMEOUT);
       this.show = false;
 
