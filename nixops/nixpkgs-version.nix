@@ -9,6 +9,6 @@
 #   5. Get SHA256 hash of URL contents with `nix-prefetch-url --unpack <url>`.
 
 {
-  url    = "https://releases.nixos.org/nixos/19.03/nixos-19.03.172422.915ce0f1e1a/nixexprs.tar.xz";
-  sha256 = "1466r0gldggjs3rwpy7wqnsw00ryav2zw0kc97rwgv8m0ad91qx8";
+  url    = "https://releases.nixos.org/nixos/19.03/nixos-19.03.172866.4649b6ef4b5/nixexprs.tar.xz";
+  sha256 = "0arladi13zycxj53y32r0pzyrzlkszxhvxzfg9l3dz3bv42gkhrf";
 }
