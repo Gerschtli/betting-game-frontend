@@ -16,7 +16,6 @@ export default class InputValidationError extends ApiError {
 
     Object.setPrototypeOf(this, InputValidationError.prototype);
 
-    console.log(response);
     this._response = response;
   }
 
