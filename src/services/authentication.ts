@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { Unauthorized } from '@/errors';
+import { InputValidationError } from '@/errors';
 
 import { logError } from './error';
 
@@ -10,11 +10,10 @@ async function login(username: string, password: string): Promise<any> {
 
     return response;
   } catch (error) {
-    if (error instanceof Unauthorized) {
-      return false;
-    }
-
     logError(error);
+    if (error instanceof InputValidationError) {
+      throw error;
+    }
     return null;
   }
 }
@@ -23,9 +22,7 @@ async function logout(): Promise<void> {
   try {
     await axios.post('/auth/logout');
   } catch (error) {
-    if (!(error instanceof Unauthorized)) {
-      logError(error);
-    }
+    logError(error);
   }
 }
 
