@@ -12,6 +12,7 @@ export const error: Module<ErrorState, RootState> = {
   namespaced: true,
   state: {
     message: undefined,
+    multiLine: false,
   },
   getters,
   mutations,

@@ -4,7 +4,7 @@
     color="error"
     :timeout="0"
     :top="true"
-    :multi-line="true"
+    :multi-line="multiLine"
   ) {{ message }}
     v-btn(
       flat
@@ -16,9 +16,8 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { namespace } from 'vuex-class';
 
-import { ROUTES } from '@/router';
 import { errorNamespace } from '@/store/error';
-import { MESSAGE } from '@/store/error/getters';
+import { MESSAGE, MULTI_LINE } from '@/store/error/getters';
 import { RESET } from '@/store/error/mutations';
 
 const ERROR = namespace(errorNamespace);
@@ -31,6 +30,8 @@ export default class ErrorMessage extends Vue {
 
   @ERROR.Getter(MESSAGE)
   private message: any;
+  @ERROR.Getter(MULTI_LINE)
+  private multiLine: any;
   @ERROR.Mutation(RESET)
   private resetMessage: any;
 

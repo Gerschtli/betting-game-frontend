@@ -8,6 +8,7 @@ export const RESET = 'RESET';
 export const mutations: MutationTree<ErrorState> = {
   [SET](state: ErrorState, payload: { message: string }): void {
     state.message = payload.message;
+    state.multiLine = payload.message.length > 50;
   },
 
   [RESET](state: ErrorState): void {
