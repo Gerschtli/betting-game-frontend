@@ -8,13 +8,14 @@ async function login(username: string, password: string): Promise<any> {
   try {
     const response = await axios.post('/auth/login', { username, password });
 
-    return response;
+    return { response };
   } catch (error) {
     logError(error);
     if (error instanceof InputValidationError) {
-      throw error;
+      return { errors: error.errors };
     }
-    return null;
+
+    throw error;
   }
 }
 

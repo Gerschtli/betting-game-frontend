@@ -5,42 +5,19 @@
         v-card(class="elevation-12")
           v-form(@submit.prevent="onSubmit")
             v-card-text
-              v-text-field(
-                prepend-icon="person"
-                name="username"
-                label="Benutzername"
-                type="text"
-                v-model="username"
-                v-validate="'required'"
-                :error-messages="errors.collect('username')"
-                data-vv-name="username"
-                data-vv-as="Benutzername"
-                required
-                autofocus
-              )
-              v-text-field(
-                prepend-icon="lock"
-                name="password"
-                label="Passwort"
-                type="password"
-                v-model="password"
-                v-validate="'required'"
-                :error-messages="errors.collect('password')"
-                data-vv-name="password"
-                data-vv-as="Passwort"
-                required
-              )
+              form-elements(:errors="errors", :model="model", :schema="schema")
             v-card-actions
               v-spacer
               v-btn(color="primary" type="submit") Login
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { Action, namespace } from 'vuex-class';
+import { Component, Mixins } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 
+import FormElements from '@/components/FormElements.vue';
+import FormMixin from '@/mixins/FormMixin';
 import { ROUTES } from '@/router';
-import { login } from '@/services/authentication';
 import { authenticationNamespace } from '@/store/authentication';
 import { LOGIN } from '@/store/authentication/actions';
 import { errorNamespace } from '@/store/error';
@@ -49,10 +26,31 @@ import { RESET, SET } from '@/store/error/mutations';
 const AUTHENTICATION = namespace(authenticationNamespace);
 const ERROR = namespace(errorNamespace);
 
-@Component
-export default class Login extends Vue {
-  private username: string = 'abcdef';
-  private password: string = '123456';
+@Component({
+  components: { FormElements },
+})
+export default class Login extends Mixins(FormMixin) {
+  private model: any = {
+    username: '',
+    password: '',
+  };
+
+  private schema: any = {
+    username: {
+      autofocus: true,
+      icon: 'person',
+      label: 'Benutzername',
+      required: true,
+      rules: 'required',
+    },
+    password: {
+      icon: 'lock',
+      label: 'Passwort',
+      required: true,
+      rules: 'required',
+      type: 'password',
+    },
+  };
 
   @AUTHENTICATION.Action(LOGIN)
   private actionLogin: any;
@@ -66,11 +64,11 @@ export default class Login extends Vue {
       return;
     }
 
-    const success = await this.actionLogin(
-      { username: this.username, password: this.password },
-    );
+    const errors = await this.actionLogin(this.model);
 
-    if (success) {
+    if (errors) {
+      this.mapErrors(errors, this.errors, this.schema);
+    } else {
       let route: { name?: string, path?: string } = { name: ROUTES.home };
       if (this.$route.params.nextUrl) {
         route = { path: this.$route.params.nextUrl };
@@ -78,8 +76,6 @@ export default class Login extends Vue {
 
       this.resetError();
       this.$router.push(route);
-    } else if (success === false) {
-      this.setError({ message: 'Benutzername und/oder Passwort falsch.' });
     }
   }
 }

@@ -12,14 +12,13 @@ export const LOGOUT = 'LOGOUT';
 
 export const actions: ActionTree<AuthenticationState, RootState> = {
   async [LOGIN]({ commit }, data: { username: string, password: string }): Promise<boolean | null> {
-    const response = await login(data.username, data.password);
+    const { errors, response } = await login(data.username, data.password);
 
-    if (!response) {
-      return response;
+    if (response) {
+      commit(SET_ACCESS_TOKEN, response.data.access_token);
     }
 
-    commit(SET_ACCESS_TOKEN, response.data.access_token);
-    return true;
+    return errors;
   },
 
   async [LOGOUT]({ commit }): Promise<void> {
