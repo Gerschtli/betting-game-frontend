@@ -6,25 +6,22 @@ import { errorNamespace } from '@/store/error';
 import { SET } from '@/store/error/mutations';
 
 export function logError(error: ApiError): void {
-  let message = `Ein unerwarter Fehler ist aufgetreten. Bitte noch einmal versuchen oder den
-    Fehler melden.`;
+  let type = 'generalError';
 
   if (error instanceof InputValidationError) {
-    const general = error.getGeneral();
-    if (general === undefined) {
+    if (!error.general) {
       return;
     }
 
-    message = getMessage(general.type);
-  }
+    type = error.general.type;
+  } else if (error instanceof Unauthorized) {
+    type = 'loginInvalid';
 
-  if (error instanceof Unauthorized) {
-    message = 'Login abgelaufen, bitte neu einloggen.';
     router.push({
       name: ROUTES.login,
       params: { nextUrl: router.currentRoute.fullPath },
     });
   }
 
-  store.commit(`${errorNamespace}/${SET}`, { message });
+  store.commit(`${errorNamespace}/${SET}`, { message: getMessage(type) });
 }

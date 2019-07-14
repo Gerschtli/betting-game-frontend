@@ -9,7 +9,7 @@ interface Response {
 }
 
 export default class InputValidationError extends ApiError {
-  private _response: Response;
+  private readonly _response: Response;
 
   constructor(response: Response) {
     super();
@@ -19,11 +19,11 @@ export default class InputValidationError extends ApiError {
     this._response = response;
   }
 
-  public getGeneral(): ErrorInfo | undefined {
+  public get general(): ErrorInfo | undefined {
     return this._response._general;
   }
 
-  public getErrors(): Response {
+  public get errors(): Response {
     const errors = { ...this._response };
     delete errors._general;
     return errors;
