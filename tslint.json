@@ -52,8 +52,7 @@
             "match": ".*",
             "order": 10
           }
-        ],
-        "ordered-imports": true
+        ]
       }
     ],
     "object-literal-sort-keys": false
